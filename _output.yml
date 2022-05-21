@@ -1,0 +1,14 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">A Vulnerability Prediction Analysis</a></li>
+      after: null
+      scroll_highlight: true
+    fontsettings:
+      theme: sepia
+      family: sans
+  info: false
+  edit : null
+  download: null

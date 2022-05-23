@@ -8,9 +8,31 @@ description: |
   I created this project with the aim to express how a vulnerability can be interpreted using a graphical representation based on a information sample dataset caught from antivirus public database.
 ---
 
+```{r eval=TRUE}
+library(forecast)
+library(lubridate)
+library(tidyverse)
+library(readr)
+library(markdown)
+library(plotrix)
+library(gganimate)
+library(gifski)
+
+Informe_de_virus <- read_delim("Informe de virus.csv",delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
 # About
 
 This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a simple math equation $a^2 + b^2 = c^2$.
+
+- readr
+- dplyr
+- stringr
+- ggplot2
+- tidyverse
+- readxl
+- qplot
+- markdown
 
 ## Usage 
 
@@ -44,10 +66,10 @@ As you work, you may start a local server to live preview this HTML book. This p
 bookdown::serve_book()
 ```
 
+See Figure \@ref(fig:nice-bar).
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+```{r nice-bar, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'}
+
+Pie_tipo=Informe_de_virus%>%select(`Object type`)%>%group_by(`Object type`)%>%summarise(n_incidencias = n())
+pie3D(Pie_tipo$n_incidencias,labels = Pie_tipo$`Object type`,explode = 0.2,border = "white", main = "Proporcion de inc. por tipo de malware")
 ```

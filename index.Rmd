@@ -21,55 +21,15 @@ library(gifski)
 Informe_de_virus <- read_delim("Informe de virus.csv",delim = ";", escape_double = FALSE, trim_ws = TRUE)
 ```
 
-# About
+# OBJETIVOS
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a simple math equation $a^2 + b^2 = c^2$.
+Realizar un análisis y estudio de un conjunto de eventos y/o incidentes de seguridad informática que han sido generados por diferentes estaciones de trabajo y/o usuarios de una empresa al usar los recursos de red, para poder determinar cuál es tipo de malware más común, bajo que escenario se han producido estos eventos, así como investigar e intentar predecir la cantidad de eventos a futuro.
 
-- readr
-- dplyr
-- stringr
-- ggplot2
-- tidyverse
-- readxl
-- qplot
-- markdown
+Para poder llevar a cabo este estudio se dispone de datasets obtenidos de dispositivos de seguridad de la empresa.
 
-## Usage 
+Los objetivos típicos son comprender:
 
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
+*	La distribución de variables en su conjunto de datos. 
+*	Las relaciones entre variables.
+*	Si sus datos tienen o no valores atípicos o puntos inusuales puede indicar problemas de calidad de los datos o conducir a descubrimientos interesantes.
 
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
-
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
-
-## Render book
-
-You can render the HTML version of this example book without changing anything:
-
-1. Find the **Build** pane in the RStudio IDE, and
-
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:
-
-```{r, eval=FALSE}
-bookdown::render_book()
-```
-
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
-
-```{r eval=FALSE}
-bookdown::serve_book()
-```
-
-See Figure \@ref(fig:nice-bar).
-
-```{r nice-bar, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'}
-
-Pie_tipo=Informe_de_virus%>%select(`Object type`)%>%group_by(`Object type`)%>%summarise(n_incidencias = n())
-pie3D(Pie_tipo$n_incidencias,labels = Pie_tipo$`Object type`,explode = 0.2,border = "white", main = "Proporcion de inc. por tipo de malware")
-```

@@ -1,12 +1,25 @@
-# Parts
+# ANALISIS EXPLORATORIO
 
-You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file. 
+El proceso de utilizar resúmenes numéricos y visualizaciones para explorar sus datos e identificar posibles relaciones entre variables se denomina análisis exploratorio que es un proceso de investigación en el que se usan estadísticas de resumen y herramientas gráficas para llegar a conocer los datos y comprender lo que se puede averiguar de ellos para hallar anomalías en los datos, como valores atípicos u observaciones inusuales, revelar patrones, comprender posibles relaciones entre variables y generar preguntas o hipótesis interesantes que se pueden comprobar más adelante mediante métodos estadísticos más formales.
 
-Add a numbered part: `# (PART) Act one {-}` (followed by `# A chapter`)
+En el análisis exploratorio se buscan claves y pistas que puedan conducir a la identificación de las posibles causas de origen del problema que se intenta resolver, se utiliza una variedad de gráficos y herramientas exploratorias, lo más probable es que se averigüen diferentes aspectos sobre los datos a partir de diferentes gráficos.
 
-Add an unnumbered part: `# (PART\*) Act one {-}` (followed by `# A chapter`)
+Para iniciar nuestro estudio se presentará el análisis exploratorio de nuestro dataset “informe de virus.csv! para poder verificar el tipo de información que es la base de nuestra investigación.
 
-Add an appendix as a special kind of un-numbered part: `# (APPENDIX) Other stuff {-}` (followed by `# A chapter`). Chapters in an appendix are prepended with letters instead of numbers.
+Antes de empezar, le vamos a dar formato a nuestros datos, usando los siguientes comandos:
 
+```
+Informe_de_virus <- read_delim("Informe de virus.csv", 
+                                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
 
+Table \@ref(tab:nice-tab).
 
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(Informe_de_virus[, c(2,3,4,6,8)], 10),
+  caption = 'Informe de Virus!',
+  booktabs = TRUE
+)
+
+```

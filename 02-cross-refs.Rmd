@@ -1,41 +1,155 @@
-# Cross-references {#cross}
+# PAQUETES {#cross}
 
-Cross-references make it easier for your readers to find and link to elements in your book.
+<h1 style="font-size:150%;text-decoration:underline">BOOKDOWN</h1>
 
-## Chapters and sub-chapters
+Es un paquete R de código abierto, emplea R Markdown y facilita la escritura de libros, artículos e informes. Se puede hacer uso de extensiones Markdown para facilitar la inserción de elementos tales como tablas, numeración, figuras, etc.
 
-There are two steps to cross-reference any heading:
 
-1.  Label the heading: `# Hello world {#nice-label}`.
-    -   Leave the label off if you like the automated heading generated based on your heading title: for example, `# Hello world` = `# Hello world {#hello-world}`.
-    -   To label an un-numbered heading, use: `# Hello world {-#nice-label}` or `{# Hello world .unnumbered}`.
-2.  Next, reference the labeled heading anywhere in the text using `\@ref(nice-label)`; for example, please see Chapter \@ref(cross).
-    -   If you prefer text as the link instead of a numbered reference use: [any text you want can go here](#cross).
+**[Instalación]**
 
-## Captioned figures and tables
+install.packages("bookdown")
 
-Figures and tables *with captions* can also be cross-referenced from elsewhere in your book using `\@ref(fig:chunk-label)` and `\@ref(tab:chunk-label)`, respectively.
+**[Uso]**
 
-`Pie_tipo=Informe_de_virus%>%select('Object type')%>%group_by('Object type')%>%summarise(n_incidencias = n())`
+library(bookdown)
 
-![](D:/R-Workspace/FirstBookDownProject/_book/_main_files/figure-html/equipo.png)
+**[Documentación]**
 
-See Figure \@ref(fig:nice-fig).
+https://bookdown.org/
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
 
-Don't miss Table \@ref(tab:nice-tab).
+<h1 style="font-size:150%;text-decoration:underline">TIDYVERSE</h1>
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(pressure, 10), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
+Tidyverse es una colección de paquetes R de código abierto, brindan funcionalidad para modelar, transformar y visualizar datos, entre sus principales paquetes se incluyen: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats.
 
-### Captioned tables
-This is an example!!!
+**[Instalación]** 
 
+install.packages("tidyverse")
+
+**[Uso]**
+
+library(tidyverse)
+
+**[Documentación]** 
+
+<https://www.tidyverse.org/>
+
+
+<h1 style="font-size:150%;text-decoration:underline">PLOTRIX</h1>
+
+Este paquete de R ofrece funcionalidades especializadas para generar varios tipos de gráficos de manera sencilla, sin la necesidad de aprender una gran cantidad de sintaxis. Este paquete de R tiene una gran personalización y puede ser útil en múltiples casos.
+
+**[Instalación]** 
+
+install.packages("plotrix")
+
+**[Uso]**
+
+library(plotrix)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/plotrix/plotrix.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">LUBRIDATE</h1>
+
+Es un paquete de R creado por Garrett Grolemund y Hadley Wickham, cuyo propósito es el facilitar el trabajo con datos de hora y fecha. 
+Lubridade facilita el manejo de las peculiaridades que por lo general se presentan al tratar con el tiempo(zonas horarias, días bisiestos, horarios de verano, etc.). 
+
+**[Instalación]** 
+
+install.packages("lubridate",dependencies = TRUE)
+
+**[Uso]**
+
+library(lubridate)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/lubridate/lubridate.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">FORECAST</h1>
+
+Es un paquete de R muy utilizada, proporcionas métodos y herramientas para realizar pronósticos de series de tiempo. Hace uso de modelos de espacio de estado y el modelo ARIMA en automático. 
+
+**[Instalación]**
+
+install.packages('forecast')
+
+**[Uso]**
+
+library(forecast)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/forecast/forecast.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">GGANIMATE</h1>
+
+Agrega el paquete ggplot2 una sintaxis totalmente compatible y nueva; con el fin de crear graficas dinámicas y animadas a partir de las gráficas estáticas que proporciona la sintaxis de este paquete. 
+
+**[Instalación]** 
+
+install.packages('gganimate')
+
+**[Uso]**
+
+library(gganimate)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/gganimate/gganimate.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">GIFSKI</h1>
+
+Es un codificador GIF de alta calidad escrito en el lenguaje de programación Rust. Es una simple y potente herramienta que se utiliza para crear gráficos animados a partir de una serie de archivos PNG.  
+
+**[Instalación]** 
+
+install.packages('gifski')
+
+**[Uso]**
+
+library(gifski)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/gifski/gifski.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">READR</h1>
+
+Este paquete fue desarrollado por Hadley Wickham con el objetivo de proporcionar una forma fácil y rápida de importar y exportar nuestros conjuntos de datos. Este paquete se encuentra contenido dentro del conjunto de paquetes de tidyverse. 
+
+**[Instalación]** 
+
+install.packages("readr")
+
+**[Uso]**
+
+library(readr)
+
+**[Documentación]** 
+
+<https://cran.r-project.org/web/packages/readr/readr.pdf>
+
+
+<h1 style="font-size:150%;text-decoration:underline">MARKDOWN</h1>
+
+Markdown es un lenguaje de marcado ligero, facilita la escritura de blog, foros en línea, páginas de documentación, archivos Readme, etc. Se distribuye de manera gratuita bajo una licencia BSD(Berkeley Software Distribution).
+
+**[Instalación]**
+
+install.packages("rmarkdown", dep = TRUE)
+
+**[Uso]**
+
+library(markdown)
+
+**[Documentación]**
+
+<https://cran.r-project.org/web/packages/markdown/markdown.pdf>

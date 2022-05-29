@@ -1,15 +1,123 @@
 # PREGUNTAS
 
-## Footnotes
 
-Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.]. 
+<h1 style="font-size:150%"><u>PREGUNTA 1:</u> ¿CUÁL ES LA PROPORCIÓN DE  INCIDENTES POR TIPO DE MALWARE?</h1>
 
-## Citations
+See Figure \@ref(fig:nice-bar1).
 
-Reference items in your bibliography file(s) using `@key`.
+```{r nice-bar1, fig.cap='Proporcion de inc. por tipo de malware!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico Circular Malware.'}
 
-For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib).  ^[This is a second footnote.]
-Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key.
+Pie_tipo=Informe_de_virus%>%select(`Object type`)%>%group_by(`Object type`)%>%summarise(n_incidencias = n())
+pie3D(Pie_tipo$n_incidencias,labels = Pie_tipo$`Object type`,explode = 0.2,border = "white", main = "Proporcion de inc. por tipo de malware")
+```
 
 
-The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations>
+<h1 style="font-size:150%"><u>PREGUNTA 2:</u> ¿QUÉ DISPOSITIVOS SON LOS MÁS INFECTADOS Y DE QUÉ?</h1>
+
+Según el análisis realizado, se obtuvo como resultado los siguiente: los dispositivos **dispositivo_1022** y **dispositivo_1043** resultaron ser los más infectados. En cada uno se detectó más de 600 y más de 300 incidentes de adware respectivamente. Y en el dispositivo **dispositivos_1048** se detecto mas de 100 incidentes de troyano
+
+
+<h2 style="font-size:150%">LÍNEAS DE CÓDIGO</h2>
+Se creo un nuevo dataframe llamado **dis_masinfectados** utilizando el dataframe **Informe_de_virus** del cual solo se seleccionó las columnas **Device** y **Object Type**, agrupando, sumarizando y ordenando de mayor a menor cada uno de sus filas, para finalmente solo mostrar los primeros 15 elementos.
+
+Para la gráfica se hizo uso del paguete ggplot, además de las columnas Device , n_incidencias , Object type del dataframe  dis_masinfectados. See Figure \@ref(fig:nice-bar2).
+
+```{r nice-bar2, fig.cap='# Incidencias por dispositivos!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+
+(dis_masinfectados=Informe_de_virus%>%select(Device,`Object type`)%>%group_by(Device,`Object type`)%>%summarise(n_incidencias = n())%>%arrange(desc(n_incidencias))%>%head(5))
+ggplot(dis_masinfectados, aes(x=Device, y=n_incidencias,color=`Object type`)) + geom_count(size=7)
+```
+
+
+<h1 style="font-size:150%"><u>PREGUNTA 3:</u> ¿CUALES SON LOS USUARIOS CON MAYOR NUMERO DE INCIDENTES?</h1>
+
+Los usuarios internos negligentes son la causa principal de la mayoría de los incidentes en una empresa. De acuerdo a las estadísticas el 56% de las amenazas internas notificadas son consecuencia de la acción de un empleado o proveedor descuidado, y normalmente experimentan un costo alto por incidente. Esto puede ser resultado de una variedad de factores, como no asegurarse de que los dispositivos están protegidos, no seguir la política de seguridad de la empresa u olvidar instalar parches y actualizaciones.
+
+Por otro lado existen usuarios internos maliciosos que son personas autorizadas que utilizan su acceso a los datos para actividades dañinas, poco éticas o ilegales. Dado que los usuarios tienen cada vez más acceso a la información para mejorar su productividad ,son más difíciles de detectar que los atacantes externos y los hackers.
+
+Realizar un análisis de los usuarios con mayor cantidad de incidentes nos ayudará a focalizar el tipo de usuario y encontrar algún patrón tal como tipo de dispositivo, horarios, tipo de malware etc, para lograr este análisis hemos ejecutado los siguientes comandos:
+
+Que nos permite sumarizar y ordenar las filas de nuestro dataset de acuerdo a la columna de incidentes. See Figure \@ref(fig:nice-bar3).
+
+```{r nice-bar3, fig.cap='# Incidencias por usuario!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+
+(devuserinfectados=Informe_de_virus%>%select(Device,`Object type`,Action,Details,Account)%>%group_by(Device,`Object type`,Action,Account)%>%summarise(n_incidencias = n())%>%arrange(desc(n_incidencias))%>%head(4))
+
+ggplot(devuserinfectados, aes(x=Account, y=n_incidencias,color=`Object type`)) + geom_count(size=7)
+```
+
+
+<h1 style="font-size:150%"><u>PREGUNTA 4:</u> ¿CUALES SON LOS USUARIOS CON MAYOR NUMERO DE INCIDENTES?</h1>
+
+
+<h1 style="font-size:150%"><u>PREGUNTA 5:</u> ¿CUÁL ES EL NÚMERO DE INCIDENTES QUE SE PRESENTARAN EN LOS DÍAS CERCANOS AL 05/05?</h1>
+
+De la grafica podemos concluir que el numero de incidentes por hora producidos entre el 27/04 y el 05/05 no pasan de cinco.
+
+Para lo cual se utilizó las siguientes líneas de código:
+
+En primer lugar se utiliza el dataframe **tiempo_detectado**, se crea la variable **fecha_hora** que contendrá una variable en un solo formato la fecha y hora, para ello se utiliza la función **dmy** de **lubridate**. Luego se utilizará las funciones **filter, group by y summarise** para seleccionar, agrupar y realizar un conteo en el rango de fechas de interés.
+
+Cuando se ejecuta las líneas de código anteriores, se puede observar que solo se muestran los resultados de las horas en los que detecto un incidente, si en una determinada hora de un día no se detecto un incidente este no se mostrara. Para rellenar esas horas con ceros se ejecuta el siguiente código.
+
+Para unir las tablas **tseleccion** con la tabla **horas_completas** se utilizará la función **LEFT_JOIN**.
+
+Para la gráfica se hará uso del paquete **ggplot** y el dataframe tseleccion_hora
+
+```{r nice-bar4, fig.cap='# Incidencias por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+
+tiempo_detectado=Informe_de_virus%>%select(`Detected at`,Device,Account,`Object type`,`Path to file`,Details,Action)
+ 
+##glimpse(tiempo_detectado)
+ 
+fecha_tiempo=parse_date_time(tiempo_detectado$`Detected at`,"dmy HM")
+ 
+ft=as.data.frame(fecha_tiempo)
+ft$fecha=date(ft$fecha_tiempo)
+ 
+ft$tiempo=format(ft$fecha_tiempo,format = "%H:%M")
+
+tseleccion=tiempo_detectado%>%mutate(fecha_hora=parse_date_time(tiempo_detectado$`Detected at`,"dmy HM"))%>%
+  filter(fecha_hora>= as.Date('2022-04-27'),
+         fecha_hora<= as.Date('2022-05-05'))%>%
+  group_by(horas=floor_date(fecha_hora,unit = 'hour'))%>%
+  summarise(conteo=n())
+
+horas_completas=data.frame(
+  horas=seq(floor_date(min(tseleccion$horas),unit = 'hour'),
+            floor_date(max(tseleccion$horas),unit = 'hour'),
+            by='hour'))
+
+tseleccion_hora=horas_completas%>%group_by(horas_redondeadas=floor_date(horas,unit = 'hour'))%>%
+  left_join(tseleccion)%>%
+  mutate(conteo= ifelse(is.na(conteo),0,conteo))
+
+ggplot(data=tseleccion_hora,aes(x=horas,y=conteo)) + geom_line()
+```
+
+<h1 style="font-size:150%"><u>PREGUNTA 6:</u> ¿CUÁL ES LA CANTIDAD DE EVENTOS POR HORA?</h1>
+
+```{r nice-bar5, fig.cap='# Eventos por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+
+#####comprobando la prediccion 
+
+tseleccion10=tiempo_detectado%>%mutate(fecha_hora10=parse_date_time(tiempo_detectado$`Detected at`,"dmy HM"))%>%
+  group_by(horas10=floor_date(fecha_hora10,unit = 'hour'))%>%
+  summarise(conteo10=n())
+
+## rellenando lo ceros
+horas_completas10=data.frame(
+  horas10=seq(floor_date(min(tseleccion10$horas10),unit = 'hour'),
+             floor_date(max(tseleccion10$horas10),unit = 'hour'),
+             by='hour'))
+
+##left join con horas
+tseleccion_hora10=horas_completas10%>%group_by(horas_redondeadas10=floor_date(horas10,unit = 'hour'))%>%
+  left_join(tseleccion10)%>%
+  mutate(conteo10= ifelse(is.na(conteo10),0,conteo10))
+##grafica inicial
+ggplot(data=tseleccion_hora10,
+       aes(x=horas10,
+           y=conteo10)) +
+  geom_line() + transition_reveal(horas10)
+```

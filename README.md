@@ -4,7 +4,9 @@ Grupo N° 7
 
 Integrantes:
 Luis Guerra
+
 Roger Chauca
+
 Elmer Oliveros
 
 Este proyecto fue desarrollado con bookdown

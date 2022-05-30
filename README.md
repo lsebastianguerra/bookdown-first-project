@@ -10,7 +10,9 @@ Elmer Oliveros
 Este proyecto fue desarrollado con bookdown
 
 Los comandos para su compilación y despliegue son: 
+
 Comando de Compilación del proyecto: bookdown::render_book("index.Rmd")
+
 Comando de Publicación del proyecto: bookdown::publish_book()
 
 El proyecto se encuentra publicado en el siguiente enlace:

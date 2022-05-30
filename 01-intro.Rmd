@@ -1,11 +1,42 @@
 # DATASETS 
 
-All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
+<h1 style="font-size:150%;text-decoration:underline">INFORME DE VIRUS</h1>
 
-## A section
 
-All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter.
+**Group:** Nombre del grupo de administración al cuál pertenece el dispositivo.
 
-### An unnumbered section {-}
+**Device:** Nombre del dispositivo evaluado.
 
-Chapters and sections are numbered by default. To un-number a heading, add a `{.unnumbered}` or the shorter `{-}` at the end of the heading, like in this section.
+**Detected object:** Nombre tecnico del virus dado por Kaspersky.
+
+**Detected at:** Fecha y hora de detección del virus.
+
+**Path to file:** Ruta de red donde se ha detectado el malware.
+
+**Object type:** Clasificación del tipo de objeto detectado.
+
+**Details:** Breve descripción detallada sobre el malware.
+
+**Action:** Acción tomada sobre el malware.
+
+**Account:** Nombre de la cuenta de usuario en el dispositivo.
+
+**Application:** Nomble completo de la aplicación.
+
+**Version number:** Versión del virus detectado.
+
+**Last visible:** Fecha y hora del dispositivo que se vuelve visible en la red.
+
+**Last connected to Administration Server:** Fecha y hora del último dispositivo conectado al servidor de administración.
+
+**IP address:** Dirección de red del dispositivo.
+
+**NetBIOS name:** Nombre del equipo testeado.
+
+**Windows domain:** Nombre del dominio windows local o remoto.
+
+
+
+**La base Informe de Virus es una base obtenida de un appliance de seguridad proveniente de una empresa del sector Educativo.**
+
+

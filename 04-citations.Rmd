@@ -3,7 +3,7 @@
 
 <h1 style="font-size:150%"><u>PREGUNTA 1:</u> ¿CUÁL ES LA PROPORCIÓN DE  INCIDENTES POR TIPO DE MALWARE?</h1>
 
-See Figure \@ref(fig:nice-bar1).
+Se realizó este analisis para evaluar los distintos tipos de malware detectados en un periodo de tiempo establecido de 10 semanas. El gráfico nos muestra que la mayor cantidad de virus detectados fueron del tipo Adware, seguido por el Trojan. See Figure \@ref(fig:nice-bar1).
 
 ```{r nice-bar1, fig.cap='Proporcion de inc. por tipo de malware!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico Circular Malware.'}
 
@@ -47,7 +47,21 @@ ggplot(devuserinfectados, aes(x=Account, y=n_incidencias,color=`Object type`)) +
 ```
 
 
-<h1 style="font-size:150%"><u>PREGUNTA 4:</u> ¿CUALES SON LOS USUARIOS CON MAYOR NUMERO DE INCIDENTES?</h1>
+<h1 style="font-size:150%"><u>PREGUNTA 4:</u> ¿CUÁL ES EL MAYOR NUMERO DE INCIDENTES POR DÍA?</h1>
+
+Permite determinar el número de incidentes diarios y visualizar el mayor pico generado. See Figure \@ref(fig:nice-bar4).
+
+
+```{r nice-bar4, fig.cap='# Incidencias por días!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+
+tiempo_detectado=Informe_de_virus%>%select(`Detected at`,Device,Account,`Object type`,`Path to file`,Details,Action)
+fecha_tiempo=parse_date_time(tiempo_detectado$`Detected at`,"dmy HM")
+ft=as.data.frame(fecha_tiempo)
+ft$fecha=date(ft$fecha_tiempo)
+ft$tiempo=format(ft$fecha_tiempo,format = "%H:%M")
+
+qplot(data=ft, x=ft$fecha)
+```
 
 
 <h1 style="font-size:150%"><u>PREGUNTA 5:</u> ¿CUÁL ES EL NÚMERO DE INCIDENTES QUE SE PRESENTARAN EN LOS DÍAS CERCANOS AL 05/05?</h1>
@@ -62,9 +76,9 @@ Cuando se ejecuta las líneas de código anteriores, se puede observar que solo 
 
 Para unir las tablas **tseleccion** con la tabla **horas_completas** se utilizará la función **LEFT_JOIN**.
 
-Para la gráfica se hará uso del paquete **ggplot** y el dataframe tseleccion_hora
+Para la gráfica se hará uso del paquete **ggplot** y el dataframe tseleccion_hora. See Figure \@ref(fig:nice-bar5).
 
-```{r nice-bar4, fig.cap='# Incidencias por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+```{r nice-bar5, fig.cap='# Incidencias por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
 
 tiempo_detectado=Informe_de_virus%>%select(`Detected at`,Device,Account,`Object type`,`Path to file`,Details,Action)
  
@@ -95,9 +109,13 @@ tseleccion_hora=horas_completas%>%group_by(horas_redondeadas=floor_date(horas,un
 ggplot(data=tseleccion_hora,aes(x=horas,y=conteo)) + geom_line()
 ```
 
-<h1 style="font-size:150%"><u>PREGUNTA 6:</u> ¿CUÁL ES LA CANTIDAD DE EVENTOS POR HORA?</h1>
+<h1 style="font-size:150%"><u>REPRESENTACIÓN DINÁMICA PREGUNTA 5:</u> NÚMERO DE INCIDENTES POR HORA QUE SE HA PRESENTADO EN EL TIEMPO</h1>
 
-```{r nice-bar5, fig.cap='# Eventos por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
+Se coloca una gráfico dinámico que representa el número de incidente por hora.
+
+Se coloca un gráfico de predicción basado en el pronostico ARIMA, el cuál describe un  modelo autoregresivo integrado de media móvil estacional que hace regresión sobre si mismo, es decir que va a predecir, en el sentido de la regresión, lo que pasa hoy utilizando como predictor lo que pasó ayer por ejemplo.
+
+```{r nice-bar6, fig.cap='# Eventos por horas!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Gráfico de puntos.'}
 
 #####comprobando la prediccion 
 
@@ -120,4 +138,26 @@ ggplot(data=tseleccion_hora10,
        aes(x=horas10,
            y=conteo10)) +
   geom_line() + transition_reveal(horas10)
+
+##Creando el objeto ts para el modelo
+##Realizando la ejecución del siguiente código, se puede concluir que el numero de incidentes para los días cercanos al día 05/05 no llegaran a tres.
+conteo_ts=ts(tseleccion_hora$conteo,
+             start = 1,
+             frequency = 24)
+ 
+
+ajuste=auto.arima(y=conteo_ts)
+ 
+summary(ajuste)
+ 
+predicciones=forecast(ajuste)
+ 
+min(predicciones[['lower']])
+max(predicciones[['upper']])
+ 
+##grafica de predicciones
+p_predict=autoplot(predicciones)
+ 
+p_predict
+
 ```

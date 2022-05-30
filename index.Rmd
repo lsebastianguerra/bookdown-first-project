@@ -1,6 +1,6 @@
 --- 
 title: "A Vulnerability Prediction Analysis"
-author: "Luis Guerra"
+author: "Luis Guerra, Elmer Oliveros, Roger Chauca"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
